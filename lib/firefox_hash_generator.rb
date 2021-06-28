@@ -1,10 +1,20 @@
 require 'digest'
 
 module FirefoxHashGenerator
+  class UnknownAppName < StandardError; end
+
   # @see https://blog.onee3.org/2018/04/manually-add-a-search-engine-to-firefox-quantum/
   # @see https://developer.mozilla.org/en-US/docs/Tools/Browser_Console
   # @see https://hg.mozilla.org/mozilla-central/rev/2ae760290f8c
   module_function def generate(app_name, profile_basename, search_engine_name)
+    if app_name.is_a?(Symbol)
+      begin
+        app_name = APP_NAMES.fetch(app_name)
+      rescue KeyError
+        raise UnknownAppName, "The app name symbol #{app_name.inspect} is not known - either add it to the APP_NAMES constant or specify a string name"
+      end
+    end
+
     text = profile_basename + search_engine_name + TEMPLATE.gsub('$appName', app_name)
     Digest::SHA256.base64digest(text)
   end
