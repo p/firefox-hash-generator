@@ -6,13 +6,13 @@ engine.
 
 ## Usage
 
-  require 'firefox_hash_generator'
-  
-  FirefoxHashGenerator.generate(
-    :firefox,
-    'randombytes.default',
-    'DuckDuckGo',
-  )
+    require 'firefox_hash_generator'
+    
+    FirefoxHashGenerator.generate(
+      :firefox,
+      'randombytes.default',
+      'DuckDuckGo',
+    )
 
 The first argument is the browser app name. This can be retrieved from the
 [browser console](https://developer.mozilla.org/en-US/docs/Tools/Browser_Console)
